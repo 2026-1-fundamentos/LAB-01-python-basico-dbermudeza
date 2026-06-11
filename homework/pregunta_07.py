@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -22,6 +21,21 @@ def pregunta_07():
      (6, ['C', 'E', 'A', 'B']),
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
-     (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
+     (9, ['A', 'B', 'E', 'A', 'A', 'C')]
 
     """
+    base_dir = __file__.replace("\\", "/").rsplit("/", 1)[0]
+    data_path = base_dir + "/../files/input/data.csv"
+    mapping = {}
+    with open(data_path, "r", encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split("\t")
+            letter = parts[0]
+            value = int(parts[1])
+            if value not in mapping:
+                mapping[value] = []
+            mapping[value].append(letter)
+    return sorted(mapping.items())

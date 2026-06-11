@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,3 +25,15 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    base_dir = __file__.replace("\\", "/").rsplit("/", 1)[0]
+    data_path = base_dir + "/../files/input/data.csv"
+    months = {}
+    with open(data_path, "r", encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split("\t")
+            month = parts[2][5:7]
+            months[month] = months.get(month, 0) + 1
+    return sorted(months.items())
